@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 public class LaunchActivity extends AppCompatActivity {
+
     private static final String PREF_KEY = "is_first_launch";
 
     public  static void start(Context context){
@@ -21,16 +22,15 @@ public class LaunchActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences= getSharedPreferences("prefs", Context.MODE_PRIVATE);
         boolean isFirstLaunch= sharedPreferences.getBoolean(PREF_KEY,true);
-        Intent intent;
+
         if(isFirstLaunch){
             sharedPreferences.edit().putBoolean(PREF_KEY,false).apply();
-            intent= new Intent(this, IntroActivity.class);
+            IntroActivity.start(this);
 
         }else {
-            intent= new Intent(this, MainActivity.class);
-
+               MainActivity.start(this);
         }
-        startActivity(intent);
+
         finish();
 
     }
