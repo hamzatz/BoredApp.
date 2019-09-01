@@ -18,7 +18,7 @@ import com.e.boredapp.model.BoredAction;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView, textType, textPrice,textAccessibility;
+    TextView textView, textType, textPrice,textAccessibility, textPaticipans, textlink;
     Button btnRefresh;
     ProgressBar progressBar;
 
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         textPrice= findViewById(R.id.text_price);
         textAccessibility= findViewById(R.id.textAccess);
         progressBar = findViewById(R.id.progressBar);
+        textPaticipans= findViewById(R.id.text_patisipans);
+        textlink= findViewById(R.id.text_link);
 
     }
 
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         textType.setVisibility(View.GONE);
         textAccessibility.setVisibility(View.GONE);
         textPrice.setVisibility(View.GONE);
+        textPaticipans.setVisibility(View.GONE);
+        textlink.setVisibility(View.GONE);
+
         new BoredApiClient().getBoredAction(new IBoredApiClient.BoredActionCallback() {
             @Override
             public void onSuccess(BoredAction action) {
@@ -54,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 textType.setText(action.getType());
                 textPrice.setText(Float.toString(action.getPrice()));
                 textAccessibility.setText(Float.toString(action.getAccessibility()));
-                progressBar.setVisibility(View.GONE);
-                textView.setVisibility(View.VISIBLE);
-                textType.setVisibility(View.VISIBLE);
-                textAccessibility.setVisibility(View.VISIBLE);
-                textPrice.setVisibility(View.VISIBLE);
+                textPaticipans.setText(Integer.toString(action.getParticipants()));
+                textlink.setText(action.getLink());
+
+                setVisible();
                 Log.d("ololo", "Responce "+action.getActivity());
             }
 
@@ -68,5 +72,14 @@ public class MainActivity extends AppCompatActivity {
               progressBar.setVisibility(View.GONE);
             }
         });
+    }
+    private void setVisible(){
+        textView.setVisibility(View.VISIBLE);
+        textType.setVisibility(View.VISIBLE);
+        textAccessibility.setVisibility(View.VISIBLE);
+        textPrice.setVisibility(View.VISIBLE);
+        textPaticipans.setVisibility(View.VISIBLE);
+        textlink.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 }
