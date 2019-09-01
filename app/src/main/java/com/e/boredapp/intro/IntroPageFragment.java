@@ -18,7 +18,7 @@ public class IntroPageFragment extends Fragment {
     private final static String ARG_IMAGE_RES = "image_res";
 
     public static  Fragment newInstance(IntroPageConfig config) {
-      Fragment fragment= new Fragment();
+      Fragment fragment= new IntroPageFragment();
       Bundle args = new Bundle();
       args.putInt(ARG_TITLE_RES,config.getTitleRes());
       args.putInt(ARG_IMAGE_RES,config.getImageRes());
