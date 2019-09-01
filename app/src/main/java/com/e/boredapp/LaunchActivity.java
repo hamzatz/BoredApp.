@@ -4,35 +4,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.e.boredapp.intro.IntroActivity;
+import com.e.boredapp.main.MainActivity;
 
 public class LaunchActivity extends AppCompatActivity {
 
-    private static final String PREF_KEY = "is_first_launch";
 
-    public  static void start(Context context){
-        Intent intent= new Intent(context, LaunchActivity.class);
-        context.startActivity(intent);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        SharedPreferences sharedPreferences= getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        boolean isFirstLaunch= sharedPreferences.getBoolean(PREF_KEY,true);
+          redirect();
+    }
+    public void redirect (){
 
-        if(isFirstLaunch){
-            sharedPreferences.edit().putBoolean(PREF_KEY,false).apply();
+        if(App.appPreferences.isFirstLaunch()){
+            Log.e("-------", "true");
+            App.appPreferences.setLaunched();
             IntroActivity.start(this);
 
         }else {
-               MainActivity.start(this);
+            MainActivity.start(this);
         }
-
         finish();
-
     }
     }
 
